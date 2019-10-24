@@ -1,4 +1,4 @@
-package main
+package blacklistchecker
 
 var (
 	// Name is the application name

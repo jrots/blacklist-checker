@@ -1,4 +1,4 @@
-package main
+package blacklistchecker
 
 var BlacklistEntries []string = []string{
 	"http.dnsbl.sorbs.net",
@@ -47,13 +47,11 @@ var BlacklistEntries []string = []string{
 	"rbl.spamlab.com",
 	"rbl.suresupport.com",
 	"relays.mail-abuse.org",
-	"short.rbl.jp",
 	"spamguard.leadmon.net",
 	"spamrbl.imp.ch",
 	"tor.dan.me.uk",
 	"ubl.unsubscore.com",
 	"virbl.bit.nl",
-	"virus.rbl.jp",
 	"xbl.abuseat.org",
 }
 
