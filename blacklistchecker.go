@@ -12,7 +12,7 @@ import (
 
 
 type BlacklistChecker interface {
-	Check(ip string) (bool, error)
+	Check(ip string) ([]string, error)
 
 }
 
@@ -33,6 +33,8 @@ type blacklistCommand struct {
 	queue    chan queueItem
 	response chan queueItem
 
+	blacklisted []string
+
 	wg sync.WaitGroup
 }
 
@@ -51,18 +53,18 @@ func ShowVersion(c *kingpin.ParseContext) error {
 */
 func NewBlackListChecker() BlacklistChecker {
 	return &blacklistChecker{
-		verbose: true,
+		verbose: false,
 		hosts: GetBlacklistHosts(),
 		nameServer: "8.8.8.8:53",
 	}
 }
 
-func (b *blacklistChecker) Check(ip string) (bool, error) {
+func (b *blacklistChecker) Check(ip string) ([]string, error) {
 	ipAddress := net.ParseIP(ip)
 	ips := []net.IP{ipAddress}
 
 	command := &blacklistCommand{
-		queue: make(chan queueItem,15),
+		queue: make(chan queueItem, len(b.hosts)),
 		response: make(chan queueItem),
 	}
 	command.wg.Add(len(ips) * len(b.hosts))
@@ -81,7 +83,7 @@ func (b *blacklistChecker) Check(ip string) (bool, error) {
 	}
 	command.wg.Wait()
 
-	return false, nil
+	return command.blacklisted, nil
 }
 
 func (b *blacklistChecker) processQueue(command *blacklistCommand) {
@@ -94,7 +96,7 @@ func (b *blacklistChecker) processQueue(command *blacklistCommand) {
 			go b.checkIfBlacklisted(command.response, command, qi.IP, qi.Blacklist)
 		case qr := <-command.response:
 			if len(qr.Response) > 0 {
-				fmt.Printf("%s blacklisted on %s with %s\n", qr.IP.String(), qr.Blacklist, strings.Join(qr.Response, ","))
+				command.blacklisted = append(command.blacklisted,fmt.Sprintf("%s blacklisted on %s with %s\n", qr.IP.String(), qr.Blacklist, strings.Join(qr.Response, ",")))
 			}
 		}
 	}
