@@ -96,7 +96,7 @@ func (b *blacklistChecker) processQueue(command *blacklistCommand) {
 			go b.checkIfBlacklisted(command.response, command, qi.IP, qi.Blacklist)
 		case qr := <-command.response:
 			if len(qr.Response) > 0 {
-				command.blacklisted = append(command.blacklisted,fmt.Sprintf("%s blacklisted on %s with %s\n", qr.IP.String(), qr.Blacklist, strings.Join(qr.Response, ",")))
+				command.blacklisted = append(command.blacklisted,fmt.Sprintf("%s blacklisted on %s with %s", qr.IP.String(), qr.Blacklist, strings.Join(qr.Response, ",")))
 			}
 		}
 	}
