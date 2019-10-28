@@ -6,6 +6,7 @@ import (
 	"net"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/miekg/dns"
 )
@@ -127,7 +128,7 @@ func (b *blacklistChecker) checkIfBlacklisted(channel chan<- queueItem, command 
 
 	defer command.wg.Done()
 
-	client := new(dns.Client)
+	client := &dns.Client{Timeout:400 * time.Millisecond}
 
 	qi := queueItem{
 		IP:        IP,

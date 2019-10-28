@@ -40,7 +40,7 @@ var BlacklistEntries []string = []string{
 	"netblock.pedantic.org",
 	"opm.tornevall.org",
 	"psbl.surriel.com",
-	"query.senderbase.org",
+	"rf.senderbase.org",
 	"rbl-plus.mail-abuse.org",
 	"rbl.efnetrbl.org",
 	"rbl.interserver.net",
