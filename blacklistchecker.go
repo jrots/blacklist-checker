@@ -46,12 +46,7 @@ type blacklistChecker struct {
 	hosts   []string
 
 }
-/*
-func ShowVersion(c *kingpin.ParseContext) error {
-	fmt.Printf("%s version %s build %s (%s), built on %s, by %s\n", Name, BuildVersion, BuildHash, runtime.GOARCH, BuildDate, Maintainer)
-	return nil
-}
-*/
+
 func NewBlackListChecker() BlacklistChecker {
 	return &blacklistChecker{
 		verbose: false,

@@ -21,5 +21,4 @@ func TestBlackList(t *testing.T){
 	if len(ret) > 0 {
 		t.Errorf("excpected not blacklisted for ip %v got %v", ip ,ret)
 	}
-
-	}
+}
