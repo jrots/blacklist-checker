@@ -2,7 +2,7 @@ package blacklistchecker
 
 var (
 	// Name is the application name
-	Name string = "blacklist-checker"
+	Name string = "blacklistchecker"
 
 	// Description is the applications description
 	Description string = "Fast blacklist checker application"
