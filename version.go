@@ -1,5 +1,5 @@
 package blacklistchecker
-
+const Version = "v1.0"
 var (
 	// Name is the application name
 	Name string = "blacklistchecker"
