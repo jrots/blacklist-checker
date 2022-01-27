@@ -1,4 +1,4 @@
-module github.com/jrots/blacklist-checker
+module github.com/jrots/blacklistchecker
 
 go 1.17
 
